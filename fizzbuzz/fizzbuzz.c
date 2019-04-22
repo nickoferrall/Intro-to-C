@@ -13,7 +13,7 @@ int fizzbuzz(int n)
 {
     int i;
 
-    for (i = 1; i <= n; i++)
+    for (i = 0; i < n; i++)
     {
         if (i % 3 == 0 && i % 5 == 0)
         {
@@ -39,7 +39,7 @@ int fizzbuzz(int n)
 #ifndef TESTING
 int main(void)
 {
-    fizzbuzz(20);
+    fizzbuzz(3);
 
     return 0;
 }
