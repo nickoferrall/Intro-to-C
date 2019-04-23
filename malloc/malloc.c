@@ -12,7 +12,14 @@
 */
 char *string_dup(char *src)
 {
+    int len = string_length(src);
+    char *new_string = malloc(len);
+    new_string = src;
+    return new_string;
 
+    // for loop. copy each part of src into new_string
+
+    // \0 null terminator. That's how it knows we're at the end of the string
 }
 
 /*
@@ -22,9 +29,32 @@ char *string_dup(char *src)
     performing the copying. `n` is the amount of data that should be copied
     from `src` to `dest`. 
 */
+
 void mem_copy(void *dest, const void *src, int n)
 {
+    printf("First.. %s\n", dest);
+    printf("Second.. %s\n", src);
+    printf("Int %d\n", n);
+    // char *dest_cast = malloc(dest);
+    // printf("Dest cast %s", dest_cast);
+    char *cast_dest = (char *)dest;
+    char *cast_src = (char *)src;
 
+    printf("Printing cast... %p\n", cast_dest);
+    printf("Printing src cast... %s\n", cast_src);
+
+    for (int j = 0; j < n; j++)
+    {
+        printf("Character %c\n", *(cast_src + j));
+        // *(cast_dest + j) = *(cast_src + j); // how C really works
+        cast_dest[j] = cast_src[j]; // syntacital sugar
+    }
+
+    printf("Output of cast_dest: %s", cast_dest);
+
+    // int *length_src = malloc(sizeof(src));
+    // length_src = src;
+    // printf("Length src.. %s\n", length_src);
 }
 
 /*
@@ -38,10 +68,9 @@ void mem_copy(void *dest, const void *src, int n)
     
     Do not use the `realloc` function from the standard libary.
 */
-void *resize_memory(void *ptr, int old_size, int new_size)
-{
-
-}
+// void *resize_memory(void *ptr, int old_size, int new_size)
+// {
+// }
 
 #ifndef TESTING
 int main(void)
@@ -54,33 +83,35 @@ int main(void)
     int numbers[] = {100, 55, 4, 98, 10, 18, 90, 95, 43, 11, 47, 67, 89, 42, 49, 79};
     int n = sizeof(numbers) / sizeof(numbers[0]);
     int *target = malloc(n * sizeof(int));
-    
+
     mem_copy(target, numbers, n * sizeof(int));
 
     printf("Copied array: ");
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         printf("%d ", target[i]);
     }
 
     printf("\n");
 
-    char *url = string_dup("http://lambdaschool.com");
-    char *path = string_dup("/students/");
-    int url_length = string_length(url);
-    int path_length = string_length(path);
-    
-    int new_length = url_length - 1 + path_length;
-    char *new_url = resize_memory(url, url_length, new_length);
-    char *p = new_url + url_length;
+    // char *url = string_dup("http://lambdaschool.com");
+    // char *path = string_dup("/students/");
+    // int url_length = string_length(url);
+    // int path_length = string_length(path);
 
-    while (*path != '\0') {
-        *p = *path;
-        p++;
-        path++;
-    }
+    // int new_length = url_length - 1 + path_length;
+    // char *new_url = resize_memory(url, url_length, new_length);
+    // char *p = new_url + url_length;
 
-    printf("Full path string: %s\n", new_url);
+    // while (*path != '\0')
+    // {
+    //     *p = *path;
+    //     p++;
+    //     path++;
+    // }
+
+    // printf("Full path string: %s\n", new_url);
 
     return 0;
 }
