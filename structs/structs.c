@@ -7,8 +7,12 @@
     Person type. Don't forget to specify the type of each field. A 
     Person should have the fields `name`, `age`, `height`, and `weight`.
 */
-typedef struct Person {
-
+typedef struct Person
+{
+    char *name;
+    int age;
+    int height;
+    int weight;
 } Person;
 
 /*
@@ -21,7 +25,14 @@ typedef struct Person {
 */
 Person *createPerson(char *name, int age, int height, int weight)
 {
+    struct Person *new_person = malloc(sizeof(struct Person));
 
+    new_person->name = string_dup(name);
+    new_person->age = age;
+    new_person->height = height;
+    new_person->weight = weight;
+
+    return new_person;
 }
 
 /*
@@ -30,7 +41,7 @@ Person *createPerson(char *name, int age, int height, int weight)
 */
 void destroyPerson(Person *who)
 {
-
+    free(who);
 }
 
 #ifndef TESTING

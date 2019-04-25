@@ -13,8 +13,18 @@
 char *string_dup(char *src)
 {
     int len = string_length(src);
-    char *new_string = malloc(len);
-    new_string = src;
+    char *new_string = malloc(len + 1);
+
+    for (int i = 0; i < len; i++)
+    {
+        new_string[i] = src[i];
+        // *(new_string + i) = *(src + i);
+    }
+
+    // *(new_string + len) = '\0';
+    new_string[len] = '\0';
+
+    printf("Copied string.. %s\n", new_string);
     return new_string;
 
     // for loop. copy each part of src into new_string
@@ -32,29 +42,16 @@ char *string_dup(char *src)
 
 void mem_copy(void *dest, const void *src, int n)
 {
-    printf("First.. %s\n", dest);
-    printf("Second.. %s\n", src);
-    printf("Int %d\n", n);
-    // char *dest_cast = malloc(dest);
-    // printf("Dest cast %s", dest_cast);
     char *cast_dest = (char *)dest;
     char *cast_src = (char *)src;
 
-    printf("Printing cast... %p\n", cast_dest);
-    printf("Printing src cast... %s\n", cast_src);
-
     for (int j = 0; j < n; j++)
     {
-        printf("Character %c\n", *(cast_src + j));
         // *(cast_dest + j) = *(cast_src + j); // how C really works
         cast_dest[j] = cast_src[j]; // syntacital sugar
     }
 
-    printf("Output of cast_dest: %s", cast_dest);
-
-    // int *length_src = malloc(sizeof(src));
-    // length_src = src;
-    // printf("Length src.. %s\n", length_src);
+    printf("Output of cast_dest: %s\n", cast_dest);
 }
 
 /*
@@ -68,9 +65,20 @@ void mem_copy(void *dest, const void *src, int n)
     
     Do not use the `realloc` function from the standard libary.
 */
-// void *resize_memory(void *ptr, int old_size, int new_size)
-// {
-// }
+void *resize_memory(void *ptr, int old_size, int new_size)
+{
+    char *cast_ptr = (char *)ptr;
+    printf("Third question.. %d\n%d\n", new_size, old_size);
+
+    printf("What is ptr.. %d\n", *cast_ptr);
+
+    // for (int i = 0; i < new_size; i++)
+    // {
+    //     printf("%s\n", cast_ptr);
+    // }
+
+    return 0;
+}
 
 #ifndef TESTING
 int main(void)
@@ -88,30 +96,30 @@ int main(void)
 
     printf("Copied array: ");
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i <= n; i++)
     {
         printf("%d ", target[i]);
     }
 
     printf("\n");
 
-    // char *url = string_dup("http://lambdaschool.com");
-    // char *path = string_dup("/students/");
-    // int url_length = string_length(url);
-    // int path_length = string_length(path);
+    char *url = string_dup("http://lambdaschool.com");
+    char *path = string_dup("/students/");
+    int url_length = string_length(url);
+    int path_length = string_length(path);
 
-    // int new_length = url_length - 1 + path_length;
-    // char *new_url = resize_memory(url, url_length, new_length);
-    // char *p = new_url + url_length;
+    int new_length = url_length - 1 + path_length;
+    char *new_url = resize_memory(url, url_length, new_length);
+    char *p = new_url + url_length;
 
-    // while (*path != '\0')
-    // {
-    //     *p = *path;
-    //     p++;
-    //     path++;
-    // }
+    while (*path != '\0')
+    {
+        *p = *path;
+        p++;
+        path++;
+    }
 
-    // printf("Full path string: %s\n", new_url);
+    printf("Full path string: %s\n", new_url);
 
     return 0;
 }
